@@ -1,0 +1,20 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextInt()) {
+            int a = in.nextInt();
+            int prev = 0;
+            int cur = 1;
+            while (a > cur) {
+                int tmp = cur + prev;
+                prev = cur;
+                cur = tmp;
+            }
+            int step1 = a - prev;
+            int step2 = cur - a;
+            int res = step1 > step2 ? step2 : step1;
+            System.out.println(res);
+        }
+    }
+}
