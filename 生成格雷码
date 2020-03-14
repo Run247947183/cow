@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class GrayCode {
+    public String[] getGray(int n) {
+        String[] res = null;
+        if (n == 1) {
+            res = new String[]{"0","1"};
+        } else {
+            String[] prevStr = getGray(n - 1);
+            res = new String[2 * prevStr.length];
+            for (int i = 0; i < prevStr.length; i++) {
+                res[i] = "0" + prevStr[i];
+                res[res.length - 1 - i] = "1" + prevStr[i];
+            }
+        }
+        return res;
+    }
+}
+
