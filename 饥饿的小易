@@ -1,0 +1,19 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int num = in.nextInt();
+        int count = 0;
+        while (count <= 300000) {
+            num = (2 * num + 1) % 1000000007;
+            count++;
+            if (num == 0) {
+                break;
+            }
+        }
+        res = (count + 2) / 3;
+        res = res > 100000 ? -1 : res;
+        System.out.println(res);
+    }
+}
+
