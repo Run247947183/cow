@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int N = in.nextInt();
+        String s = in.next();
+        int row = 0;
+        if (N % 2 == 0) {
+            row = N / 2;
+        } else {
+            row = N / 2 + 1;
+        }
+        if (row == 2) {
+            for (int i = 0; i < N; i++) {
+                System.out.print(s);
+            }
+            System.out.println();
+            for (int i = 0; i < N; i++) {
+                System.out.print(s);
+            }
+        } else {
+            for (int i = 0; i < N; i++) {
+                System.out.print(s);
+            }
+            System.out.println();
+            for (int i = 0; i < row - 2; i++) {
+                System.out.print(s);
+                for (int j = 0; j < N - 2; j++) {
+                    System.out.print(" ");
+                }
+                System.out.print(s);
+                System.out.println();
+            }
+            for (int i = 0; i < N; i++) {
+                System.out.print(s);
+            }
+        }
+    }
+}
