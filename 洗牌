@@ -1,0 +1,49 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int T = in.nextInt();
+        for (int i = 0; i < T; i++) {
+            int n = in.nextInt();
+            int k = in.nextInt();
+            int[] num1 = new int[n];
+            int[] num2 = new int[n];
+            for (int j = 0; j < n; j++) {
+                num1[j] = in.nextInt();
+            }
+            for (int j = 0; j < n; j++) {
+                num2[j] = in.nextInt();
+            }
+            for (int j = 0; j < k; j++) {
+                StringBuilder sb = new StringBuilder();
+                helper(sb, num1, num2);
+                if (j == k - 1) {
+                    System.out.print(sb.toString());
+                    break;
+                }
+                num1 = build(sb, n, 0);
+                num2 = build(sb, n, n);
+            }
+            System.out.println();
+        }
+    }
+    private static void helper(StringBuilder sb, int[] num1, int[] num2) {
+        for (int j = 0; j < num1.length; j++) {
+            sb.append(num1[j] + " ");
+            sb.append(num2[j]);
+            if (j != num1.length - 1) {
+                sb.append(" ");
+            }
+        }
+    }
+    
+    private static int[] build(StringBuilder sb, int n, int start) {
+        String[] s = sb.toString().split(" ");
+        int[] arr = new int[n];
+        int index = 0;
+        for (int i = start; i < start + n; i++) {
+            arr[index++] = Integer.parseInt(s[i]); 
+        }
+        return arr;
+    }
+}
