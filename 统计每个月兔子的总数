@@ -1,0 +1,46 @@
+方法一：递归
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            int num = in.nextInt();
+            System.out.println(getTotalCount(num));
+        }
+    }
+    public static int getTotalCount(int monthCount) {
+        if (monthCount == 1 || monthCount == 2) {
+            return 1;
+        }
+        return getTotalCount(monthCount - 1) + getTotalCount(monthCount - 2);
+    }
+}
+
+
+方法二：非递归
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()) {
+            int num = in.nextInt();
+            System.out.println(count(num));
+        }
+    }
+    public static int count(int num) {
+        if (num == 1 || num == 2) {
+            return 1;
+        }
+        int old = 1;
+        int young = 1;
+        int month1 = 1;
+        int month2 = 0;
+        for (int i = 4; i <= num; i++) {
+            old += month2;
+            month2 = month1;
+            month1 = old;
+        }
+        return old + month1 + month2;
+    }
+}
