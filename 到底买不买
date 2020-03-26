@@ -1,0 +1,35 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String all = in.nextLine();
+        String buy = in.nextLine();
+        String res = helper(all, buy);
+        System.out.println(res);
+    }
+    public static String helper(String all, String buy) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : all.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        StringBuilder sb = new StringBuilder();
+        boolean tag = false;
+        for (char x : buy.toCharArray()) {
+            if (map.containsKey(x)) {
+                int num = map.get(x);
+                if (num - 1 == 0) {
+                    map.remove(x);
+                } else {
+                    map.put(x, num - 1);
+                }
+                continue;
+            }
+            sb.append(x);
+            tag = true;
+        }
+        if (tag) {
+            return "No " + sb.length();
+        }
+        return "Yes " + map.size();
+    }
+}
