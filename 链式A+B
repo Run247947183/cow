@@ -1,0 +1,51 @@
+import java.util.*;
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Plus {
+    public ListNode plusAB(ListNode a, ListNode b) {
+        ListNode head = new ListNode(-1);
+        ListNode tail = head;
+        int tmp = 0;
+        while (a != null && b != null) {
+            int sum = a.val + b.val + tmp;
+            tmp = sum / 10;
+            sum = sum % 10;
+            tail.next = new ListNode(sum);
+            tail = tail.next;
+            a = a.next;
+            b = b.next;
+        }
+        if (a != null) {
+            while (a != null) {
+                int sum = a.val + tmp;
+                tmp = sum / 10;
+                sum = sum % 10;
+                tail.next = new ListNode(sum);
+                tail = tail.next;
+                a = a.next;
+            }
+        }
+        if (b != null) {
+            while (b != null) {
+                int sum = b.val + tmp;
+                tmp = sum / 10;
+                sum = sum % 10;
+                tail.next = new ListNode(sum);
+                tail = tail.next;
+                b = b.next;
+            }
+        }
+        if (tmp > 0) {
+            tail.next = new ListNode(tmp);
+            tail = tail.next;
+        }
+        return head.next;
+    }
+}
