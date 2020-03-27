@@ -1,0 +1,63 @@
+import java.text.DecimalFormat;
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+            int N = in.nextInt();
+            int sum = 0;
+            int sum2 = 0;
+            int number = 0;
+            int eql = 0;
+            int numEql = 0;
+            int max = 0;
+            boolean tag = true;
+            for (int i = 0; i < N; i++) {
+                int tmp = in.nextInt();
+                if (tmp % 5 == 0 && tmp % 2 ==0) {
+                    sum += tmp;
+                } else if (tmp % 5 == 1) {
+                    if (tag) {
+                        sum2 += tmp;
+                        tag = false;
+                    } else {
+                        sum2 -= tmp;
+                        tag = true;
+                    }
+                } else if (tmp % 5 == 2) {
+                    number++;
+                } else if (tmp % 5 == 3) {
+                    numEql++;
+                    eql += tmp;
+                } else if (tmp % 5 == 4) {
+                    max = max > tmp ? max : tmp;
+                }
+            }
+            if (sum == 0) {
+                System.out.print("N" + " ");
+            } else {
+                System.out.print(sum + " ");
+            }
+            if (sum2 == 0) {
+                System.out.print("N" + " ");
+            } else {
+                System.out.print(sum2 + " ");
+            }
+            if (number == 0) {
+                System.out.print("N" + " ");
+            } else {
+                System.out.print(number + " ");
+            }
+            if (numEql == 0) {
+                System.out.print("N" + " ");
+            } else {
+                String res = null;
+                res = new DecimalFormat("0.0").format(eql*1.0 / numEql);
+                System.out.print(res + " ");
+            }
+            if (max == 0) {
+                System.out.print("N");
+            } else {
+                System.out.print(max);
+            }
+        }
+}
