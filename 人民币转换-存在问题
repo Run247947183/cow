@@ -1,0 +1,126 @@
+
+import java.util.*;
+
+
+
+
+public class Test3 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Double num = in.nextDouble();
+        String str = String.valueOf(num);
+        int a = str.indexOf(".");
+        StringBuilder sb = new StringBuilder();
+        if (a != -1) {
+            String tmp = str.substring(a + 1);
+            sb.append(methord1(tmp));
+            str = str.substring(0, a);
+        } else {
+            sb.append("整");
+        }
+        int j = 1;
+        StringBuilder sb2 = new StringBuilder(str);
+        sb2.reverse();
+        String str2 = sb2.toString();
+        int i = 0;
+        for (; i < str2.length(); i++) {
+            if (str2.charAt(i) == '0') {
+                if (sb.indexOf("零") != -1) {
+                    continue;
+                }
+                sb.insert(0, helper(str2.charAt(i)));
+                continue;
+            }
+            if (i < 5) {
+                String pos = helper2(i);
+                String point = helper(str2.charAt(i));
+                sb.insert(0, point + pos);
+            } else {
+                j = j > 3 ? 5 : j;
+                String pos = helper2(j);
+                String point = helper(str2.charAt(i));
+                sb.insert(0,point + pos);
+                j++;
+                j = j > 5 ? 0 : j;
+            }
+        }
+        if (i == 6) {
+            sb.deleteCharAt(0);
+        }
+        sb.insert(0, "人民币");
+        System.out.println(sb.toString());
+    }
+
+    private static String helper2(int i) {
+        if (i == 0) {
+            return "元";
+        }
+        if (i == 1) {
+            return "拾";
+        }
+        if (i == 2) {
+            return "佰";
+        }
+        if (i == 3) {
+            return "仟";
+        }
+        if (i == 4) {
+            return "万";
+        }
+        return "亿";
+    }
+
+    public static String methord1(String str) {
+        StringBuilder sb = new StringBuilder();
+        int a = str.indexOf("0");
+        if (a != -1) {
+            if (a == 0) {
+                if (str.charAt(1) != '0') {
+                    String tmp2 = helper(str.charAt(1));
+                    sb.append(tmp2 + '分');
+                }
+            } else {
+                if (str.charAt(0) != '0') {
+                    String tmp1 = helper(str.charAt(0));
+                    sb.append(tmp1 + '角');
+                }
+            }
+        } else {
+            String tmp1 = helper(str.charAt(0));
+            sb.append(tmp1 + '角');
+            String tmp2 = helper(str.charAt(1));
+            sb.append(tmp2 + '分');
+        }
+        return sb.toString();
+    }
+    public static String helper(char c) {
+        if (c == '0') {
+            return "零";
+        }
+        if (c == '1') {
+            return "壹";
+        }
+        if (c == '2') {
+            return "贰";
+        }
+        if (c == '3') {
+            return "叁";
+        }
+        if (c == '4') {
+            return "肆";
+        }
+        if (c == '5') {
+            return "伍";
+        }
+        if (c == '6') {
+            return "陆";
+        }
+        if (c == '7') {
+            return "柒";
+        }
+        if (c == '8') {
+            return "捌";
+        }
+        return "玖";
+    }
+}
