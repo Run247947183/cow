@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            String s = in.nextLine();
+            String num = in.nextLine();
+            if (s.indexOf(".") != -1) {
+                method1(s);
+                method2(num);
+            } else {
+                method1(num);
+                method2(s);
+            }
+        }
+    }
+
+    private static void method1(String s) {
+        String[] str = s.split("\\.");
+        StringBuilder sb = new StringBuilder();
+        long[] arr = new long[str.length];
+        for (int i = 0; i < str.length; i++) {
+            arr[i] = Long.parseLong(str[i]);
+            String tmp = Long.toBinaryString(arr[i]);
+            String tmp2 = String.format("%08d", Long.parseLong(tmp));
+            sb.append(tmp2);
+        }
+        long res = Long.parseLong(sb.toString(), 2);
+        System.out.println(res);
+    }
+
+    private static void method2(String num) {
+        String str = Long.toBinaryString(Long.parseLong(num));
+        StringBuilder sb = new StringBuilder(str);
+        for (int i = 0; i < 32 - str.length(); i++) {
+            sb.insert(0, "0");
+        }
+        String res = sb.toString();
+        long a = Long.valueOf(sb.substring(0, 8), 2);
+        long b = Long.valueOf(sb.substring(8, 16), 2);
+        long c = Long.valueOf(sb.substring(16, 24), 2);
+        long d = Long.valueOf(sb.substring(24, 32), 2);
+        System.out.println(a + "." + b + "." + c + "." + d);
+    }
+}
