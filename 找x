@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextInt()) {
+            int n = in.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
+            }
+            int x = in.nextInt();
+            int i = 0;
+            boolean tag = false;
+            for (; i < n; i++) {
+                if (arr[i] == x) {
+                    tag = true;
+                    break;
+                }
+            }
+            if (!tag) {
+                System.out.println(-1);
+            } else {
+                System.out.println(i);
+            }
+        }
+    }
+}
