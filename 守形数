@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextInt()) {
+            int num = in.nextInt();
+            int doubleNum = num * num;
+            String s1 = String.valueOf(num);
+            String s2 = String.valueOf(doubleNum);
+            if (s2.substring(s2.length() - s1.length()).equals(s1)) {
+                System.out.println("Yes!");
+            } else {
+                System.out.println("No!");
+            }
+        }
+    }
+}
