@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextLine()) {
+            String s = in.nextLine();
+            boolean res1 = isOver8(s);
+            boolean res2 = isMore3(s);
+            boolean res3 = isSame3(s);
+            if (res1 && res2 && res3) {
+                System.out.println("OK");
+            } else {
+                System.out.println("NG");
+            }
+        }
+    }
+
+    private static boolean isSame3(String s) {
+        boolean[] tag = new boolean[4];
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+                tag[0] = true;
+            } else if (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z') {
+                tag[1] = true;
+            } else if (s.charAt(i) >= 'a' && s.charAt(i) <= 'z') {
+                tag[2] = true;
+            } else {
+                tag[3] = true;
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < tag.length; i++) {
+            if (tag[i]) {
+                res++;
+            }
+        }
+        return res >= 3;
+    }
+
+    private static boolean isMore3(String s) {
+        String tmp = null;
+        for (int i = 0; i < s.length() - 3; i++) {
+            tmp = s.substring(i, i + 3);
+            if (s.substring(i + 1).indexOf(tmp) != -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isOver8(String s) {
+        if (s == null || s.length() <= 8) {
+            return false;
+        }
+        return true;
+    }
+}
