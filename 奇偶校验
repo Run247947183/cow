@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            String s = in.next();
+            helper(s);
+        }
+    }
+
+    private static void helper(String s) {
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            int a = (int)c;
+            String tmp = Integer.toBinaryString(a);
+            String res = String.format("%07d", Integer.parseInt(tmp));
+            int count = 0;
+            for (int i = 0; i < res.length(); i++) {
+                if (res.charAt(i) == '1') {
+                    count++;
+                }
+            }
+            StringBuilder sb = new StringBuilder(res);
+            if (count % 2 == 0) {
+                sb.insert(0, "1");
+                System.out.println(sb.toString());
+            }  else {
+                sb.insert(0, "0");
+                System.out.println(sb.toString());
+            }
+        }
+    }
+}
