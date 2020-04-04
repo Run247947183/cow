@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextLine()) {
+            String s = in.nextLine();
+            int N = Integer.parseInt(s);
+            String[] str = new String[N];
+            for (int i = 0; i < N; i++) {
+                str[i] = in.nextLine();
+            }
+            Sort(str);
+            for (int i = 0; i < N; i++) {
+                System.out.println(str[i]);
+            }
+        }
+    }
+
+    private static void Sort(String[] str) {
+        for (int i = 0; i < str.length; i++) {
+            for (int j = str.length - 1; j > i ; j--) {
+                if (str[j - 1].length() > str[j].length()) {
+                    swap(str, j - 1, j);
+                } else if (str[j - 1].length() == str[j].length()) {
+                    for (int k = 0; k < str[j].length(); k++) {
+                        if (str[j - 1].charAt(k) < str[j].charAt(k)) {
+                            break;
+                        } else if (str[j - 1].charAt(k) > str[j].charAt(k)) {
+                            swap(str, j - 1, j);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void swap(String[] str, int i, int j) {
+        String s = str[i];
+        str[i] = str[j];
+        str[j] = s;
+    }
+}
