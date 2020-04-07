@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class Test2 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            String s = in.nextLine();
+            String[] str = s.split(" ");
+            String Pay = str[0];
+            String Give = str[1];
+            String[] str1 = Pay.split("\\.");
+            String[] str2 = Give.split("\\.");
+            helper(str1);
+            helper(str2);
+            long sum1 = helper2(str1);
+            long sum2 = helper2(str2);
+            boolean tag = sum1 > sum2 ? true : false;
+            if (tag) {
+                sum1 -= sum2;
+                String s1 = create(sum1);
+                System.out.println("-1" + s1);
+            } else {
+                sum2 -= sum1;
+                String s1 = create(sum2);
+                System.out.println(s1);
+            }
+        }
+    }
+
+    private static String create(long sum1) {
+        StringBuilder sb = new StringBuilder();
+        int i = 2;
+        long tmp3 = sum1 % 19;
+        sb.insert(0, "." + tmp3);
+        long tmp2 = sum1 / 19;
+        long tmp1 = tmp2 % 17;
+        sb.insert(0, "." + tmp1);
+        sb.insert(0, "" + tmp2 / 17);
+        return sb.toString();
+    }
+
+
+    private static long helper2(String[] str1) {
+        long res = 0;
+        int i = 0;
+        long tmp1 = Long.parseLong(str1[i]);
+        long tmp2 = Long.parseLong(str1[i + 1]) + tmp1 * 17;
+        res = tmp2 * 19 + Long.parseLong(str1[i + 2]);
+        return res;
+    }
+
+
+    public static void helper(String[] str) {
+        for (int i = str.length - 1; i > 0 ; i--) {
+            Long res1 = Long.parseLong(str[i]);
+            Long res2 = Long.parseLong(str[i - 1]);
+            if (i == 2) {
+                str[i] = (res1 % 19) + "";
+                str[i - 1] = (res2 + res1 / 19) + "";
+            } else {
+                str[i] = (res1 % 17) + "";
+                str[i - 1] = (res2 + res1 / 17) + "";
+            }
+        }
+    }
+}
