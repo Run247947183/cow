@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class GoUpstairs {
+    public int countWays(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        if (n == 3) {
+            return 4;
+        }
+        int res = 0;
+        int first = 1;
+        int second = 2;
+        int third = 4;
+        for (int i = 4; i <= n; i++) {
+            res = (first + second) % 1000000007 + third % 1000000007;
+            first = second % 1000000007;
+            second = third % 1000000007;
+            third = res;
+        }
+        return res % 1000000007;
+    }
+}
