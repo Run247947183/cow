@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Solution {
+    /**
+     * 计算你能获得的最大收益
+     * 
+     * @param prices Prices[i]即第i天的股价
+     * @return 整型
+     */
+    public int calculateMax(int[] prices) {
+        int max = 0;
+        int count = 0;
+        for (int i = 0; i < prices.length; i++) {
+            count = findMax(prices, 0, i) + findMax(prices, i, prices.length - 1);
+            max = max > count ? max : count;
+        }
+        return max;
+    }
+    private static int findMax(int[] arr, int left, int right) {
+        int max = 0;
+        int min = arr[left];
+        for (int i = left + 1; i <= right; i++) {
+            min = arr[i] < min ? arr[i] : min;
+            max = arr[i] - min > max ? arr[i] - min : max;
+        }
+        return max;
+    }
+}
