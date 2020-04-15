@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class Printer {
+    public int[] arrayPrint(int[][] arr, int n) {
+        int[] res = new int[n * n];
+        int index = 0;
+        // 打印主对角线以及主对角线右上部分
+        for (int i = n - 1; i >= 0; i--) {
+            int x = i;
+            for (int j = 0; j < n - i; j++) {
+                res[index++] = arr[j][x++];
+            }
+        }
+        // 打印主对角线的左下部分
+        for (int i = 1; i< n; i++) {
+            int y = i;
+            for (int j = 0; j < n - i; j++) {
+                res[index++] = arr[y++][j];
+            }
+        }
+        return res;
+    }
+}
