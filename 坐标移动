@@ -1,0 +1,44 @@
+import java.util.*;
+public class Main {
+    public static String res = "ADSW";
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            String s = in.nextLine();
+            String[] str = s.split(";");
+            int x = 0;
+            int y = 0;
+            for (String s1 : str) {
+                if (judge(s1)) {
+                    char c = s1.charAt(0);
+                    int a = Integer.parseInt(s1.substring(1));
+                    if (c == 'A') {
+                        x -= a;
+                    } else if (c == 'D') {
+                        x += a;
+                    } else if (c == 'S') {
+                        y -= a;
+                    } else {
+                        y += a;
+                    }
+                }
+            }
+            System.out.println(x + "," + y);
+        }
+    }
+    public static boolean judge(String s) {
+        if (s == null || s.length() == 0) {
+            return false;
+        }
+        char[] chars = s.toCharArray();
+        if (res.indexOf(chars[0]) == -1) {
+            return false;
+        }
+        for (int i = 1; i < chars.length; i++) {
+            if (chars[i] < '0' || chars[i] > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+}
