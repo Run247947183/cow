@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Main {
+    public static String tmp = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    public static String tmp2 = "222333444555666777788899991234567890";
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            int n = in.nextInt();
+            ArrayList<String> list = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                String s = in.next();
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < s.length(); j++) {
+                    if (sb.length() == 3) {
+                        sb.append("-");
+                    }
+                    int pos = tmp.indexOf(s.charAt(j));
+                    if (pos != -1) {
+                        sb.append(tmp2.charAt(pos));
+                    }
+                }
+                if (!list.contains(sb.toString())) {
+                    list.add(sb.toString());
+                }
+            }
+            Collections.sort(list);
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i));
+            }
+            System.out.println();
+        }
+    }
+}
