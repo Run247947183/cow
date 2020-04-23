@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class Test3 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            int n = in.nextInt();
+            String[] str = new String[n];
+            for (int i = 0; i < n; i++) {
+                str[i] = in.next();
+            }
+            String res = in.next();
+            int pos = in.nextInt();
+            ArrayList<String> list = new ArrayList<>();
+            helper(list, res, str);
+            // 按照字典序排列好兄弟单词顺序
+            Collections.sort(list);
+            System.out.println(list.size());
+            if (list.size() >= pos) {
+                // 如果查找的单词排序大于总兄弟单词的数量，则不输出
+                System.out.println(list.get(pos - 1));
+            }
+        }
+    }
+
+    // 将兄弟单词加入 list
+    private static void helper(ArrayList<String> list, String res, String[] str) {
+        for (String s : str) {
+            if (judge(s, res)) {
+                list.add(s);
+            }
+        }
+    }
+
+    // 判断是否是兄弟单词，如果两个单词相同也不是兄弟单词
+    private static boolean judge(String s, String res) {
+        if (s.equals(res) || s.length() != res.length()) {
+            return false;
+        }
+        int[] arr = new int[200];
+        for (int i = 0; i < s.length(); i++) {
+            int tmp = Integer.valueOf(s.charAt(i));
+            arr[tmp]++;
+        }
+        for (int i = 0; i < res.length(); i++) {
+            int tmp = Integer.valueOf(res.charAt(i));
+            if (arr[tmp] == 0) {
+                return false;
+            }
+            arr[tmp]--;
+        }
+        return true;
+    }
+}
