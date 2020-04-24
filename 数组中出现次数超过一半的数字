@@ -1,0 +1,18 @@
+import java.util.*;
+public class Solution {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        if (array == null || array.length == 0) {
+            return 0;
+        }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for (int a : array) {
+            map.put(a, map.getOrDefault(a, 0) + 1);
+            if (map.get(a) > array.length / 2) {
+                res = a;
+                break;
+            }
+        }
+        return res;
+    }
+}
