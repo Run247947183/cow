@@ -1,39 +1,29 @@
-链接：https://www.nowcoder.com/questionTerminal/f5805cc389394cf69d89b29c0430ff27
-来源：牛客网
+import java.util.*;
 
-//简单说一下，不用开辟额外的空间，直接在本数组操作即可
-//用三个指针就可以。一个指向K，其余两个以K为分界线，分别指向开头和K+1的位置
-public int findMaxGap(int[] A, int n) {
-        //leftmax存放左边数组的最大值，rightmax存放右边数组的最大值
-        //value存放差值，temp存放每次的最大值
-        int leftmax = 0 , rightmax = 0 ,value = 0 , temp = 0;
-        //以K为分界线，K每次不断移动指针
-        for(int K = 0 ; K < n-1 ; K++){
-            //做一个判断。如果是第一次从左到K找最大数
-            //就进入for循环，如果不是第一次找最大数，
-            //因为前面已经在K-1个数中找到了最大数，所以不用从新开始找
-            //只需要和第K个数比较一下就可以了
-            if (value != 0 && A[K] > leftmax) {
-                leftmax = A[K];
-            } else {
-                leftmax = A[0];
-                // i每次从0开始遍历到K的位置，并且返回最大值
-                for (int i = 0; i <= K; i++) {
-                    leftmax = A[i] > leftmax ? A[i] : leftmax;
+public class MaxGap {
+    public int findMaxGap(int[] A, int n) {
+        int leftMax = 0;
+        int rightMax = 0;
+        int tmp = 0;
+        int min = Integer.MIN_VALUE;
+        for (int i = 0; i < n - 1; i++) {
+            if (min != Integer.MIN_VALUE) {
+                if (leftMax < A[i]) {
+                    leftMax = A[i];
                 }
+            } else {
+                leftMax = A[0];
             }
-            rightmax = A[K+1];
-            //j从K+1处开始遍历，并且返回数组最大值
-            for(int j = K+1 ;j<n ; j++){
-                rightmax = A[j]>rightmax?A[j]:rightmax;
+            rightMax = A[i + 1];
+            for (int j = i + 1; j < n; j++) {
+                rightMax = rightMax > A[j] ? rightMax : A[j];
             }
-            //记录差值
-            value = leftmax - rightmax;
-            //差值小于0，取绝对值
-            value = value<0?-value:value;
-            //如果当前差值比上次差值大，替换差值
-            temp = value>temp?value:temp;
+            tmp = rightMax - leftMax;
+            tmp = tmp < 0 ? -tmp : tmp;
+            min = min > tmp ? min : tmp;
         }
-        //返回差值
-        return temp;
+        return min;
     }
+}
+
+
