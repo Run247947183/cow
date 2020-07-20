@@ -1,0 +1,36 @@
+# cow
+牛客网每日一练
+import java.util.ArrayList;
+public class Solution {
+    public int minNumberInRotateArray(int [] array) {
+        if (array == null || array.length == 0) {
+            return 0;
+        }
+        int left = 0;
+        int right = array.length - 1;
+        int mid = 0;
+        while (array[left] >= array[right]) {
+            if (right - left == 1) {
+                mid = right;
+                break;
+            }
+            mid = left + (right - left) / 2;
+            // 此时无法进行排除查找，只能进行线性查找
+            if (array[left] == array[mid] && array[mid] == array[right]) {
+                int tmp = array[left];
+                for (int i = left; i < right; i++) {
+                    if (array[i] < tmp) {
+                        tmp = array[i];
+                    }
+                }
+                return tmp;
+            }
+            if (array[left] <= array[mid]) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return array[mid];
+    }
+}
