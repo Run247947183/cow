@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class Solution {
+    public boolean IsPopOrder(int [] pushA,int [] popA) {
+        if (pushA.length == 0) {
+            return true;
+        }
+        Stack<Integer> stack = new Stack<>();
+        int index1 = 0;
+        int index2 = 0;
+        while (index1 < pushA.length) {
+            stack.push(pushA[index1]);
+            // 此处 index2 不会超出下标，因为两个数组长度相同，如果 index2 即将要超出下标
+            // 那么此时 stack 应该也为空，就不会进入循环
+            while (!stack.isEmpty() && stack.peek() == popA[index2]) {
+                stack.pop();
+                index2++;
+            }
+            index1++;
+        }
+        return stack.isEmpty();
+    }
+}
