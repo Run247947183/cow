@@ -1,0 +1,94 @@
+# cow
+牛客网每日一练
+import java.util.*;
+public class Main{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextLine()) {
+            int n = Integer.valueOf(in.nextLine());
+            for (int i = 0; i < n; i++) {
+                StringBuilder sb = new StringBuilder(in.nextLine());
+                int[] left = new int[1];
+                int[] right = new int[1];
+                if (helper(sb.toString(), left, right)) {
+                    System.out.println(-1);
+                } else {
+                    sb.deleteCharAt(left[0]);
+                    if (helper(sb.toString(), null, null)) {
+                        System.out.println(left[0]);
+                    } else {
+                        System.out.println(right[0]);
+                    }
+                }
+            }
+        }
+    }
+    public static boolean helper(String s, int[] arr1, int[] arr2) {
+        int left = 0;
+        int right = s.length() - 1;
+        boolean tag = true;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                tag = false;
+                break;
+            }
+            left++;
+            right--;
+        }
+        if (arr1 != null) {
+            arr1[0] = left;
+        }
+        if (arr2 != null) {
+            arr2[0] = right;
+        }
+        return tag;
+    }
+}
+
+
+// 方法二：
+import java.util.*;
+public class Main{
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        while (in.hasNextLine()) {
+            int n = Integer.valueOf(in.nextLine());
+            for (int i = 0; i < n; i++) {
+                String s = in.nextLine();
+                int left = 0;
+                int right = s.length() - 1;
+                boolean  tag = false;
+                while (left < right) {
+                    if (s.charAt(left) != s.charAt(right)) {
+                        StringBuilder sb = new StringBuilder(s);
+                        sb.deleteCharAt(left);
+                        if (helper(sb.toString())) {
+                            System.out.println(left);
+                        } else {
+                            System.out.println(right);
+                        }
+                        tag = true;
+                        break;
+                    }
+                    left++;
+                    right--;
+                }
+                if (!tag) {
+                    System.out.println(-1);
+                }
+            }
+        }
+    }
+    public static boolean helper(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
