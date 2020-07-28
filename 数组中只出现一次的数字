@@ -1,25 +1,40 @@
-import java.util.*;
-
-// 数组中只出现了一次的数字
-public class Test4 {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        HashMap<Integer, Integer> map = new HashMap<>();
-        ArrayList<Integer> list = new ArrayList<>();
-        while (in.hasNext()) {
-            int n = in.nextInt();
-            for (int i = 0; i < n; i++) {
-                int tmp = in.nextInt();
-                map.put(tmp, map.getOrDefault(tmp, 0) + 1);
+//num1,num2分别为长度为1的数组。传出参数
+//将num1[0],num2[0]设置为返回结果
+public class Solution {
+    // ^ 异或：两个数字相同为 0 ，相异为 1
+    // & 按位与：两个数字都为 1 则结果为 1，否则为 0
+    public void FindNumsAppearOnce(int [] array,int num1[] , int num2[]) {
+        if (array == null || array.length == 0) {
+            return;
+        }
+        int res = array[0];
+        // 因为数组中有两个只出现一次的数字，其他都是出现了两次，所以异或操作的结果是：
+        // 结果是：只出现一次的两个数字异或的结果
+        for (int i = 1; i < array.length; i++) {
+            res ^= array[i];
+        }
+        // 现在只知道两个数字的异或结果，还无法区分两个数字
+        // res 二进制中只要比特位为 1 表示这两个数字的该位置的比特位不相同，所以找到该位置 tag
+        // 找到第一个比特位为 1 的位置，再重新遍历数组，将数组分成该位置为 0 和 1 的两个数组
+        // 再次分别在两个数组中进行 异或操作，最终就可以在两个数组中分别找出只出现一次的数字
+        int size = Integer.SIZE; // 32 为二进制
+        int i = 1;
+        int tag = 1; // 表示在 res 中第一次出现比特位为 1 的位置
+        while (size >= 0) {
+            if (((tag << i) & res) != 0) {
+                // 如果判断该位置比特位为 1，则需要对 tag 进行改变，否则 tag 还是 1
+                tag <<= i; 
+                break;
             }
-            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-                if (entry.getValue() % 2 != 0) {
-                    list.add(entry.getKey());
-                }
-            }
-            Collections.sort(list);
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println(list.get(i));
+            i++; // 每次往左移动 1 的位置
+            size--; // 表示进行 32 次遍历
+        }
+        // 分别在两个数组中寻找结果
+        for (int j = 0; j < array.length; j++) {
+            if ((array[j] & tag) == 0) {
+                num1[0] ^= array[j];
+            } else {
+                num2[0] ^= array[j];
             }
         }
     }
