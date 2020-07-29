@@ -1,0 +1,30 @@
+# cow
+牛客网每日一练
+import java.util.ArrayList;
+public class Solution {
+    // 滑动窗口
+    public ArrayList<ArrayList<Integer> > FindContinuousSequence(int sum) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        int left = 1;
+        int right = 2;
+        while (left < right) {
+            // 因为是连续的，所以从 left 到 right 之间都只差 1，所以可以得出一下和公式
+            int count = ((left + right) * (right - left + 1)) / 2;
+            if (count == sum) {
+                ArrayList<Integer> list = new ArrayList<>();
+                for (int i = left; i <= right; i++) {
+                    list.add(i);
+                }
+                res.add(list);
+                left++;
+            } else if (count < sum) {
+                // 表明当前连续和太小，继续扩大 right
+                right++;
+            } else {
+                // 表明当前连续和太大，需要往前进 left，缩小连续和
+                left++;
+            }
+        }
+        return res;
+    }
+}
