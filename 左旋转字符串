@@ -1,0 +1,43 @@
+# cow
+方法一：利用 substring API
+牛客网每日一练
+public class Solution {
+    public String LeftRotateString(String str,int n) {
+        if (n < 0 || str == null || str.length() == 0) {
+            return str;
+        }
+        n = n % str.length();
+        if (n == 0) {
+            return str;
+        }
+        String left = str.substring(0, n);
+        String right = str.substring(n, str.length());
+        return right + left;
+    }
+}
+方法二：
+public class Solution {
+    public String LeftRotateString(String str,int n) {
+        if (n < 0 || str == null || str.length() == 0) {
+            return str;
+        }
+        n = n % str.length();
+        if (n == 0) {
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        helper(chars, 0, n - 1);
+        helper(chars, n, str.length() - 1);
+        helper(chars, 0, str.length() - 1);
+        return new String(chars);
+    }
+    public void helper(char[] chars, int left, int right) {
+        while (left < right) {
+            char c = chars[left];
+            chars[left] = chars[right];
+            chars[right] = c;
+            left++;
+            right--;
+        }
+    }
+}
